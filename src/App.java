@@ -1,58 +1,17 @@
+
 import java.util.*;
 
 public class App {
+
     public static void main(String[] args) throws Exception {
         int start = 0;
         int range = 60000;
         int size = 50000;
-
+        System.out.println();
         System.out.println("Experimental Results");
         System.out.println("Size\t" + size);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println();
-
-        // sorting algorithms
-        List<SortingAlgorithm> algorithms = Arrays.asList(
-            new SortingAlgorithm() {
-                @Override
-                public void sort(int[] arr, MutInt comparisons, MutInt movements) {
-                    InsertionSort.insertionSort(arr, comparisons, movements);
-                }
-                @Override
-                public String toString() {
-                    return "Insertion Sort";
-                }
-            },
-            new SortingAlgorithm() {
-                @Override
-                public void sort(int[] arr, MutInt comparisons, MutInt movements) {
-                    QuickSort.quicksort(arr, comparisons, movements);
-                }
-                @Override
-                public String toString() {
-                    return "Quick Sort";
-                }
-            },
-            new SortingAlgorithm() {
-                @Override
-                public void sort(int[] arr, MutInt comparisons, MutInt movements) {
-                    HeapSort.heapSort(arr, comparisons, movements);
-                }
-                @Override
-                public String toString() {
-                    return "Heap Sort";
-                }
-            },
-            new SortingAlgorithm() {
-                @Override
-                public void sort(int[] arr, MutInt comparisons, MutInt movements) {
-                    MergeSort.mergeSort(arr, comparisons, movements);
-                }
-                @Override
-                public String toString() {
-                    return "Merge Sort";
-                }
-            }
-        );
 
         // FIRST TABLE
         int[] randomArray = getRandomArray(start, range, size);
@@ -66,12 +25,10 @@ public class App {
         // Print metrics for random array
         for (AlgorithmMetrics metrics : randomMetrics) {
             System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
         }
 
         System.out.println();
-
-
 
         // SECOND TABLE
         int[] sortedArray = Arrays.copyOf(randomArray, randomArray.length);
@@ -87,8 +44,93 @@ public class App {
         // Print metrics for sorted array
         for (AlgorithmMetrics metrics : sortedMetrics) {
             System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
         }
+        System.out.println();
+
+        // Ranking tables
+        System.out.println();
+        System.out.println("Ranking Tables for Random Order");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        // Sort algorithms by comparisons
+        randomMetrics.sort(Comparator.comparingInt(a -> a.comparisons));
+        System.out.println("Ranking by Comparisons");
+        System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "* Comparisons", "Movements", "Total Time");
+        System.out.println("------------------------------------------------------------------------------------------");
+        for (AlgorithmMetrics metrics : randomMetrics) {
+            System.out.printf("%-25s %-15d %-15d %-10dms%n",
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+        }
+        System.out.println();
+
+        // Sort algorithms by movements
+        randomMetrics.sort(Comparator.comparingInt(a -> a.movements));
+        System.out.println("Ranking by Movements");
+        System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "* Movements", "Total Time");
+        System.out.println("------------------------------------------------------------------------------------------");
+
+        for (AlgorithmMetrics metrics : randomMetrics) {
+            System.out.printf("%-25s %-15d %-15d %-10dms%n",
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+        }
+        System.out.println();
+
+        // Sort algorithms by total time
+        randomMetrics.sort(Comparator.comparingLong(a -> a.totalTime));
+        System.out.println("Ranking by Total Time");
+        System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "Movements", "* Total Time");
+
+        System.out.println("------------------------------------------------------------------------------------------");
+
+        for (AlgorithmMetrics metrics : randomMetrics) {
+            System.out.printf("%-25s %-15d %-15d %-10dms%n",
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+        }
+
+        System.out.println();
+
+        // Ranking tables
+        System.out.println();
+        System.out.println("Ranking Tables for Ascending Order");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        
+        // Sort algorithms by comparisons
+        sortedMetrics.sort(Comparator.comparingInt(a -> a.comparisons));
+        System.out.println("Ranking by Comparisons");
+        System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "* Comparisons", "Movements", "Total Time");
+        System.out.println("------------------------------------------------------------------------------------------");
+
+        for (AlgorithmMetrics metrics : sortedMetrics) {
+            System.out.printf("%-25s %-15d %-15d %-10dms%n",
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+        }
+        System.out.println();
+
+        // Sort algorithms by movements
+        sortedMetrics.sort(Comparator.comparingInt(a -> a.movements));
+        System.out.println("Ranking by Movements");
+        System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "* Movements", "Total Time");
+        System.out.println("------------------------------------------------------------------------------------------");
+
+        for (AlgorithmMetrics metrics : sortedMetrics) {
+            System.out.printf("%-25s %-15d %-15d %-10dms%n",
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+        }
+        System.out.println();
+
+        // Sort algorithms by total time
+        sortedMetrics.sort(Comparator.comparingLong(a -> a.totalTime));
+        System.out.println("Ranking by Total Time");
+        System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "Movements", "* Total Time");
+        System.out.println("------------------------------------------------------------------------------------------");
+
+        for (AlgorithmMetrics metrics : sortedMetrics) {
+            System.out.printf("%-25s %-15d %-15d %-10dms%n",
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+        }
+
+
     }
 
     static int[] getRandomArray(int start, int range, int size) {
@@ -113,6 +155,7 @@ public class App {
     }
 
     private static class AlgorithmMetrics {
+
         String algorithmName;
         int comparisons;
         int movements;
@@ -124,10 +167,59 @@ public class App {
             this.movements = movements;
             this.totalTime = totalTime;
         }
-    }        
+    }
+
+    // sorting algorithms
+    static List<SortingAlgorithm> algorithms = Arrays.asList(
+            new SortingAlgorithm() {
+        @Override
+        public void sort(int[] arr, MutInt comparisons, MutInt movements) {
+            InsertionSort.insertionSort(arr, comparisons, movements);
+        }
+
+        @Override
+        public String toString() {
+            return "Insertion Sort";
+        }
+    },
+            new SortingAlgorithm() {
+        @Override
+        public void sort(int[] arr, MutInt comparisons, MutInt movements) {
+            QuickSort.quicksort(arr, comparisons, movements);
+        }
+
+        @Override
+        public String toString() {
+            return "Quick Sort";
+        }
+    },
+            new SortingAlgorithm() {
+        @Override
+        public void sort(int[] arr, MutInt comparisons, MutInt movements) {
+            HeapSort.heapSort(arr, comparisons, movements);
+        }
+
+        @Override
+        public String toString() {
+            return "Heap Sort";
+        }
+    },
+            new SortingAlgorithm() {
+        @Override
+        public void sort(int[] arr, MutInt comparisons, MutInt movements) {
+            MergeSort.mergeSort(arr, comparisons, movements);
+        }
+
+        @Override
+        public String toString() {
+            return "Merge Sort";
+        }
+    }
+    );
 }
 
 class MutInt {
+
     int value;
 
     MutInt(int value) {
@@ -145,10 +237,12 @@ class MutInt {
 
 @FunctionalInterface
 interface SortingAlgorithm {
+
     void sort(int[] arr, MutInt comparisons, MutInt movements);
 }
 
 class InsertionSort {
+
     public static void insertionSort(int[] arr, MutInt comparisons, MutInt movements) {
         for (int i = 1; i < arr.length; i++) {
             int key = arr[i];
@@ -176,8 +270,8 @@ class InsertionSort {
     }
 }
 
-
 class QuickSort {
+
     public static void quicksort(int[] arr, MutInt comparisons, MutInt movements) {
         quicksort(arr, 0, arr.length - 1, comparisons, movements);
     }
@@ -215,6 +309,7 @@ class QuickSort {
 }
 
 class HeapSort {
+
     public static void heapSort(int[] arr, MutInt comparisons, MutInt movements) {
         int n = arr.length;
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -236,10 +331,14 @@ class HeapSort {
         int right = 2 * i + 2;
 
         comparisons.increment();                                // COMPARISON
-        if (left < n && arr[left] > arr[largest]) largest = left;
+        if (left < n && arr[left] > arr[largest]) {
+            largest = left;
+        }
 
         comparisons.increment();                                // COMPARISON
-        if (right < n && arr[right] > arr[largest]) largest = right;
+        if (right < n && arr[right] > arr[largest]) {
+            largest = right;
+        }
 
         if (largest != i) {
             movements.increment();                              // MOVEMENT
@@ -252,6 +351,7 @@ class HeapSort {
 }
 
 class MergeSort {
+
     public static void mergeSort(int[] arr, MutInt comparisons, MutInt movements) {
         mergeSort(arr, 0, arr.length - 1, comparisons, movements);
     }
