@@ -3,10 +3,14 @@ import java.util.*;
 
 public class App {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         int start = 0;
         int range = 60000;
         int size = 50000;
+        int[] arr  = {5, 8, 1, 3, 9, 6};
+        collectMetric(InsertionSort::insertionSort, arr);
+        collectMetric(InsertionSort::insertionSort, arr);
+        
         System.out.println();
         System.out.println("Experimental Results");
         System.out.println("Size\t" + size);
@@ -133,6 +137,18 @@ public class App {
 
     }
 
+    static void collectMetric(SortingAlgorithm algorithm, int[] arr) {
+        MutInt comparisons = new MutInt(0);
+        MutInt movements = new MutInt(0);
+        long startTime = System.currentTimeMillis();
+        algorithm.sort(arr, comparisons, movements);
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        System.out.println("Comparisons: " + comparisons);
+        System.out.println("Movements: " + movements);
+        System.out.println("Total Time: " + totalTime + "ms");
+    }
+
     static int[] getRandomArray(int start, int range, int size) {
         return new Random().ints(size, start, range).toArray();
     }
@@ -255,9 +271,10 @@ class InsertionSort {
                 arr[j + 1] = arr[j];
                 j = j - 1;
             }
-            comparisons.increment();                   // COMPARISON
+            if (j >= 0) {
+                comparisons.increment();                // COMPARISON
+            }
 
-            movements.increment();                     // MOVEMENT
             arr[j + 1] = key;
         }
     }
