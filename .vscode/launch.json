@@ -6,9 +6,18 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "SortingMetrics_a3c92c96",
+            "vmArgs": "-Xss6m"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}",
+            "vmArgs": "-Xss6m"
         },
         {
             "type": "java",
@@ -16,7 +25,7 @@
             "request": "launch",
             "mainClass": "App",
             "projectName": "SortingMetrics_da4f4699",
-            "vmArgs": "-Xss4m",
+            "vmArgs": "-Xss6m"
         }
     ]
 }

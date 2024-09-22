@@ -5,11 +5,8 @@ public class App {
 
     public static void main(String[] args) {
         int start = 0;
-        int range = 60000;
+        int range = 1000000;
         int size = 50000;
-        int[] arr  = {5, 8, 1, 3, 9, 6};
-        collectMetric(InsertionSort::insertionSort, arr);
-        collectMetric(InsertionSort::insertionSort, arr);
         
         System.out.println();
         System.out.println("Experimental Results");
@@ -27,10 +24,7 @@ public class App {
         List<AlgorithmMetrics> randomMetrics = runAndCollectMetrics(algorithms, randomArray);
 
         // Print metrics for random array
-        for (AlgorithmMetrics metrics : randomMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
+        printMetrics(randomMetrics);
 
         System.out.println();
 
@@ -45,11 +39,7 @@ public class App {
 
         List<AlgorithmMetrics> sortedMetrics = runAndCollectMetrics(algorithms, sortedArray);
 
-        // Print metrics for sorted array
-        for (AlgorithmMetrics metrics : sortedMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
+        printMetrics(sortedMetrics);
         System.out.println();
 
         // Ranking tables
@@ -62,10 +52,7 @@ public class App {
         System.out.println("Ranking by Comparisons");
         System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "* Comparisons", "Movements", "Total Time");
         System.out.println("------------------------------------------------------------------------------------------");
-        for (AlgorithmMetrics metrics : randomMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
+        printMetrics(sortedMetrics);
         System.out.println();
 
         // Sort algorithms by movements
@@ -74,10 +61,7 @@ public class App {
         System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "* Movements", "Total Time");
         System.out.println("------------------------------------------------------------------------------------------");
 
-        for (AlgorithmMetrics metrics : randomMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
+        printMetrics(sortedMetrics);
         System.out.println();
 
         // Sort algorithms by total time
@@ -87,10 +71,7 @@ public class App {
 
         System.out.println("------------------------------------------------------------------------------------------");
 
-        for (AlgorithmMetrics metrics : randomMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
+        printMetrics(sortedMetrics);
 
         System.out.println();
 
@@ -105,10 +86,7 @@ public class App {
         System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "* Comparisons", "Movements", "Total Time");
         System.out.println("------------------------------------------------------------------------------------------");
 
-        for (AlgorithmMetrics metrics : sortedMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
+        printMetrics(sortedMetrics);
         System.out.println();
 
         // Sort algorithms by movements
@@ -117,10 +95,7 @@ public class App {
         System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "* Movements", "Total Time");
         System.out.println("------------------------------------------------------------------------------------------");
 
-        for (AlgorithmMetrics metrics : sortedMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
+        printMetrics(sortedMetrics);
         System.out.println();
 
         // Sort algorithms by total time
@@ -129,13 +104,16 @@ public class App {
         System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "Movements", "* Total Time");
         System.out.println("------------------------------------------------------------------------------------------");
 
-        for (AlgorithmMetrics metrics : sortedMetrics) {
-            System.out.printf("%-25s %-15d %-15d %-10dms%n",
-                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
-        }
-
+        printMetrics(sortedMetrics);
 
     }
+
+    static void printMetrics(List<AlgorithmMetrics> metricsList) {
+        for (AlgorithmMetrics metrics : metricsList) {
+            System.out.printf("%-25s %-15d %-15d %-10dns%n",
+                    metrics.algorithmName, metrics.comparisons, metrics.movements, metrics.totalTime);
+           }
+        }
 
     static void collectMetric(SortingAlgorithm algorithm, int[] arr) {
         MutInt comparisons = new MutInt(0);
@@ -146,7 +124,7 @@ public class App {
         long totalTime = endTime - startTime;
         System.out.println("Comparisons: " + comparisons);
         System.out.println("Movements: " + movements);
-        System.out.println("Total Time: " + totalTime + "ms");
+        System.out.println("Total Time: " + totalTime + "ns");
     }
 
     static int[] getRandomArray(int start, int range, int size) {
@@ -160,9 +138,9 @@ public class App {
             MutInt comparisons = new MutInt(0);
             MutInt movements = new MutInt(0);
 
-            long startTime = System.currentTimeMillis();
+            long startTime = System.nanoTime();
             algorithm.sort(arrCopy, comparisons, movements);
-            long endTime = System.currentTimeMillis();
+            long endTime = System.nanoTime();
             long totalTime = endTime - startTime;
 
             metricsList.add(new AlgorithmMetrics(algorithm.toString(), comparisons.value, movements.value, totalTime));
@@ -271,9 +249,8 @@ class InsertionSort {
                 arr[j + 1] = arr[j];
                 j = j - 1;
             }
-            if (j >= 0) {
-                comparisons.increment();                // COMPARISON
-            }
+            comparisons.increment();                // COMPARISON
+            movements.increment();                  // MOVEMENT
 
             arr[j + 1] = key;
         }
