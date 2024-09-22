@@ -52,7 +52,7 @@ public class App {
         System.out.println("Ranking by Comparisons");
         System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "* Comparisons", "Movements", "Total Time");
         System.out.println("------------------------------------------------------------------------------------------");
-        printMetrics(sortedMetrics);
+        printMetrics(randomMetrics);
         System.out.println();
 
         // Sort algorithms by movements
@@ -61,7 +61,7 @@ public class App {
         System.out.printf("%-25s %-15s %-15s %-10s%n", "Sorting Algorithm", "Comparisons", "* Movements", "Total Time");
         System.out.println("------------------------------------------------------------------------------------------");
 
-        printMetrics(sortedMetrics);
+        printMetrics(randomMetrics);
         System.out.println();
 
         // Sort algorithms by total time
@@ -71,7 +71,7 @@ public class App {
 
         System.out.println("------------------------------------------------------------------------------------------");
 
-        printMetrics(sortedMetrics);
+        printMetrics(randomMetrics);
 
         System.out.println();
 
