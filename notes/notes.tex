@@ -1,0 +1,170 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{Comparison of Sorting Algorithms}
+\author{Diego Rodrigues}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+
+Sorting algorithms are fundamental in computer science, playing a critical role in optimizing data operations. This project compares the performance of four sorting algorithms: Insertion Sort, Quick Sort, Heap Sort, and Merge Sort. The algorithms are evaluated based on the number of comparisons, movements, and total execution time.
+
+\section{Project Design}
+
+The project is structured to empirically assess the efficiency of different sorting algorithms under varying input conditions.
+
+\subsection{Implemented Algorithms}
+
+\begin{itemize}
+    \item \textbf{Insertion Sort}: Builds the final sorted array one item at a time.
+    \item \textbf{Quick Sort}: Employs a divide-and-conquer strategy by selecting a pivot and partitioning the array.
+    \item \textbf{Heap Sort}: Utilizes a binary heap data structure to sort elements.
+    \item \textbf{Merge Sort}: Divides the array into halves, recursively sorts them, and merges the sorted halves.
+\end{itemize}
+
+\subsection{Measured Metrics}
+
+\begin{itemize}
+    \item \textbf{Comparisons}: Number of element comparisons.
+    \item \textbf{Movements}: Number of element movements or swaps.
+    \item \textbf{Total Time}: Execution time in nanoseconds.
+\end{itemize}
+
+\subsection{Data Generation}
+
+Two types of arrays are used:
+\begin{itemize}
+    \item \textbf{Random Order}: An array of 50,000 randomly generated integers.
+    \item \textbf{Ascending Order}: The same array sorted in ascending order.
+\end{itemize}
+
+\subsection{Experimental Procedure}
+
+Each algorithm sorts both arrays, recording performance metrics for analysis and ranking.
+
+\section{Results}
+
+\subsection{Experimental Results}
+
+\subsubsection{Random Order}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons} & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Insertion Sort & 628,031,567 & 628,031,567 & 556,118,800 \\
+Quick Sort     & 996,787     & 547,941     & 9,069,200   \\
+Heap Sort      & 1,525,122   & 737,561     & 9,431,200   \\
+Merge Sort     & 718,283     & 718,283     & 9,957,000   \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Ascending Order}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons} & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Insertion Sort & 49,999        & 49,999        & 269,200      \\
+Quick Sort     & 1,218,936,134 & 1,218,983,636 & 1,567,933,800 \\
+Heap Sort      & 1,597,540     & 773,770       & 2,326,400    \\
+Merge Sort     & 401,952       & 401,952       & 2,752,000    \\
+\bottomrule
+\end{longtable}
+
+\subsection{Ranking Tables}
+
+\subsubsection{Random Order}
+
+\paragraph{Ranking by Comparisons}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons} & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Merge Sort     & \textbf{718,283}     & 718,283     & 9,957,000   \\
+Quick Sort     & \textbf{996,787}     & 547,941     & 9,069,200   \\
+Heap Sort      & \textbf{1,525,122}   & 737,561     & 9,431,200   \\
+Insertion Sort & \textbf{628,031,567} & 628,031,567 & 556,118,800 \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Ranking by Movements}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons} & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Quick Sort     & 996,787     & \textbf{547,941}     & 9,069,200   \\
+Merge Sort     & 718,283     & \textbf{718,283}     & 9,957,000   \\
+Heap Sort      & 1,525,122   & \textbf{737,561}     & 9,431,200   \\
+Insertion Sort & 628,031,567 & \textbf{628,031,567} & 556,118,800 \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Ranking by Total Time}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons} & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Quick Sort     & 996,787     & 547,941     & \textbf{9,069,200}   \\
+Heap Sort      & 1,525,122   & 737,561     & \textbf{9,431,200}   \\
+Merge Sort     & 718,283     & 718,283     & \textbf{9,957,000}   \\
+Insertion Sort & 628,031,567 & 628,031,567 & \textbf{556,118,800} \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Ascending Order}
+
+\paragraph{Ranking by Comparisons}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons}   & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Insertion Sort & \textbf{49,999}        & 49,999        & 269,200      \\
+Merge Sort     & \textbf{401,952}       & 401,952       & 2,752,000    \\
+Heap Sort      & \textbf{1,597,540}     & 773,770       & 2,326,400    \\
+Quick Sort     & \textbf{1,218,936,134} & 1,218,983,636 & 1,567,933,800 \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Ranking by Movements}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons}   & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Insertion Sort & 49,999        & \textbf{49,999}        & 269,200      \\
+Merge Sort     & 401,952       & \textbf{401,952}       & 2,752,000    \\
+Heap Sort      & 1,597,540     & \textbf{773,770}       & 2,326,400    \\
+Quick Sort     & 1,218,936,134 & \textbf{1,218,983,636} & 1,567,933,800 \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Ranking by Total Time}
+
+\begin{longtable}{lccc}
+\toprule
+\textbf{Sorting Algorithm} & \textbf{Comparisons} & \textbf{Movements} & \textbf{Total Time (ns)} \\
+\midrule
+Insertion Sort & 49,999        & 49,999        & \textbf{269,200}      \\
+Heap Sort      & 1,597,540     & 773,770       & \textbf{2,326,400}    \\
+Merge Sort     & 401,952       & 401,952       & \textbf{2,752,000}    \\
+Quick Sort     & 1,218,936,134 & 1,218,983,636 & \textbf{1,567,933,800} \\
+\bottomrule
+\end{longtable}
+
+\section{Conclusion}
+
+The results indicate that algorithm performance is highly dependent on the initial data order. For random data, Quick Sort and Merge Sort perform best in terms of time and efficiency. In contrast, Insertion Sort excels with already sorted data due to its linear time complexity in the best case. Quick Sort performs poorly on sorted data due to its pivot selection strategy, leading to unbalanced partitions.
+
+\end{document}
+
